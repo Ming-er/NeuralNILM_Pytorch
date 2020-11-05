@@ -1,0 +1,121 @@
+wet appliance:
+  parent: appliance
+  categories:
+    traditional: wet
+    size: large
+    google_shopping:
+      - laundry appliances
+  control: [manual]
+  distributions:
+    rooms:
+    - distribution_of_data:
+        categories: [kitchen, utility, basement, garage]
+        values: [0.3, 0.3, 0.2, 0.1]
+      source: subjective
+
+#------------- CLOTHES WASHING AND DRYING ------------------------
+
+spin dryer:
+  parent: wet appliance
+  subtypes: [top-loader, front-loader]
+  control: [manual, timer]
+  components:
+    - type: motor
+      description: drum motor
+    - type: water pump
+
+tumble dryer:
+  parent: spin dryer
+  components: &dryerElement
+    - type: electric air heater
+      description: clothes drying heating element
+    
+washing machine:
+  parent: spin dryer
+  components:
+    - type: electric water heater
+  min_on_duration: 600
+  min_off_duration: 300
+  synonyms:
+    - washer dryer
+  
+washer dryer:
+  parent: washing machine
+  components: *dryerElement
+  synonyms:
+    - washing machine
+
+#------------ DISH WASHING --------------------------
+
+dish washer:
+  parent: wet appliance
+  min_on_duration: 600
+  min_off_duration: 1800
+  components:
+    - type: electric air heater
+    - type: electric water heater
+      distributions:
+        on_power:
+          - model:
+              distribution_name: summary stats
+              min: 1800
+              max: 2500
+              source: empirical from publication
+              related_documents: &Stamminger2008
+              - >
+                P. D. R. Stamminger, Synergy potential of smart appliances, 
+                in smart domestic appliances in sustainable energy systems (Smart-A),
+                University of Bonn, Tech. Rep., 2008.
+            specific_to: { country: GB }
+
+    - type: motor
+  distributions:
+    on_duration:
+      - model:
+          distribution_name: summary stats
+          min: 900 # 15 mins
+          mean: 4500 # 75 mins
+          max: 10800 # 3 hours
+        source: empirical from publication
+        related_documents: *Stamminger2008
+
+dishwasher:
+  parent: dish washer
+
+waste disposal unit:
+  parent: wet appliance
+
+#--------------- WATER PUMPS ----------------
+
+shower pump:
+  parent: water pump
+  categories:
+    google_shopping:
+      - plumbing
+      - plumbing fixtures
+      - shower
+  synonyms: [power shower]
+  description: >
+    note that this does not for an electrically heated shower.  For
+    that, please use 'electric shower heater'
+
+acquarium pump:
+  parent: water pump
+
+swimming pool pump:
+  parent: water pump
+
+pond pump:
+  parent: water pump
+
+hot tub pump:
+  parent: water pump
+
+jacuzzi pump:
+  parent: water pump
+
+garden sprinkler:
+  parent: appliance
+
+water filter:
+  parent: appliance

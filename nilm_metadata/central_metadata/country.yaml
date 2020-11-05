@@ -1,0 +1,7 @@
+GB:
+  nominal: 230
+  upper_limit: 253 # +10%
+  lower_limit: 216 #  -6%
+  related_documents: 
+  - www.legislation.gov.uk/uksi/2002/2665/regulation/27
+

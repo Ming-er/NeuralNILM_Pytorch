@@ -1,0 +1,150 @@
+#----------- SMALL COOKING APPLIANCES --------------#
+
+small cooking appliance:
+  parent: appliance
+  categories:
+    traditional: cooking
+    size: small
+    google_shopping:
+      - kitchen and dining
+      - kitchen appliances
+  control: [manual]
+  distributions:
+    rooms:
+    - distribution_of_data:
+        categories: [kitchen, utility]
+        values: [0.7, 0.1]
+      source: subjective
+
+#------------- small resistive cooking appliances ----
+
+small resistive cooking appliance:
+  parent: small cooking appliance
+  categories:
+    electrical:
+      - resistive
+
+kettle:
+  parent: small resistive cooking appliance
+
+toaster:
+  parent: small resistive cooking appliance
+
+toasted sandwich maker:
+  parent: small resistive cooking appliance
+
+fryer:
+  parent: small resistive cooking appliance
+
+coffee maker:
+  parent: small resistive cooking appliance
+  min_on_duration: 60
+  min_off_duration: 600
+
+rice cooker:
+  parent: small resistive cooking appliance
+
+food steamer:
+  parent: small resistive cooking appliance
+
+bottle warmer:
+  parent: small resistive cooking appliance
+
+steriliser:
+  parent: small resistive cooking appliance
+
+plate warmer:
+  parent: small resistive cooking appliance
+
+slow cooker:
+  parent: small resistive cooking appliance
+
+#--------------- small non-resistive cooking appliances
+
+microwave:
+  parent: small cooking appliance
+  do_not_inherit: [categories]
+  categories:
+    traditional: cooking
+    size: small
+    electrical:
+      - power electronics
+      - passive PFC
+
+food processor:
+  parent: small cooking appliance
+  do_not_inherit: [categories]
+  synonyms: [food mixer]
+  categories:
+    traditional: cooking
+    size: small
+    electrical:
+      - single-phase induction motor
+      - capacitor start-run
+      - constant torque
+
+kitchen aid:
+  parent: food processor
+
+yoghurt maker:
+  parent: small cooking appliance
+  control: [timer]
+
+breadmaker:
+  categories:
+    google_shopping:
+      - breadmakers
+  parent: small cooking appliance
+  control: [timer]
+  components:
+    - type: electric heating element
+    - type: motor
+
+#------------------ STOVE, COOKER, OVEN, GRILL ---------------#
+
+cooker:
+  parent: small cooking appliance
+  do_not_inherit: [categories]
+  categories:
+    traditional: cooking
+    size: large  
+  control: [timer] # append 'timer' to 'manual' from small cooking appliance
+  usual_components: [stove, oven, grill]
+  additional_properties:
+    fuel: 
+      enum: [natural gas, coal, wood, oil, LPG]
+      description: >
+        if all components use the same fuel then specify the fuel once
+        for the cooker.  Otherwise, if components use different fuels,
+        then do not specify the fuel for the cooker but do specify fuels
+        for each component.
+
+stove:
+  parent: cooker
+  do_not_inherit: [usual_components]
+  description: a non-electric stove or a stove with unknown heating source
+  synonyms: [hob]
+
+electric stove:
+  parent: stove
+  description: a stove where the cooking heat is provided from electricity
+  do_not_inherit: [additional_properties]
+  categories:
+    electrical:
+      - resistive
+
+oven:
+  parent: stove
+  description: a non-electric oven or a oven with unknown heating source
+
+electric oven:
+  parent: electric stove
+  description: an oven where the cooking heat is provided from electricity
+
+grill:
+  parent: stove
+  description: a non-electric grill or a grill with unknown heating source
+
+electric grill:
+  parent: electric stove
+  description: a grill where the cooking heat is provided from electricity

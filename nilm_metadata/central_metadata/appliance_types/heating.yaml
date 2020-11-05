@@ -1,0 +1,147 @@
+heating appliance:
+  parent: appliance
+  categories:
+    traditional: heating
+    size: large
+
+#------------- BOILERS ------------------------
+
+boiler:
+
+  description: all boilers except for electric boilers
+
+  parent: heating appliance
+
+  on_power_threshold: 40
+
+  synonyms: [furnace]
+
+  # Categories of the child object are appended
+  # to existing categories in the parent.
+  categories:
+    google_shopping:
+      - climate control
+      - furnaces and boilers
+
+  # Here we specify that boilers have a component
+  # which is itself an object whose parent
+  # is `water pump`
+  components:
+    - type: water pump
+
+  # Boilers have a property which most other appliances
+  # do not have: a fuel source.  We specify additional
+  # properties using the JSON Schema syntax.
+  additional_properties:
+    fuel:
+      enum: [natural gas, coal, wood, oil, LPG]
+      
+  subtypes:
+    - combi
+    - system
+
+  # We can specify the different mechanisms that
+  # control the boiler.  This is useful, for example,
+  # if we want to find all appliances which 
+  # must be manually controlled (e.g. toasters)
+  control: [manual, timer, thermostat]
+
+  # We can also declare prior knowledge about boilers.
+  # For example, we know that boilers tend to be in
+  # bathrooms, utility rooms or kitchens
+  distributions:
+    room:
+    - distribution_of_data:
+        categories: [bathroom, utility, kitchen]
+        values: [0.3, 0.2, 0.2]
+        # If the values do not add to 1 then the assumption
+        # is that the remaining probability mass is distributed equally to
+        # all other rooms.
+      source: subjective # These values are basically guesses!
+
+#------------ ELECTRIC SPACE HEATERS
+
+electric furnace:
+  parent: boiler
+  description: a boiler where the heat is provided from electricity.
+  components:
+    - type: electric water heater
+  synonyms: [electric boiler]
+
+electric space heater:
+  parent: electric air heater
+  control: [manual, timer, thermostat]
+  categories:
+    traditional: heating  
+
+#------- WATER HEATERS ----------
+
+electric water heating appliance:
+  parent: electric water heater
+  control: [manual, timer, thermostat]
+  categories:
+    traditional: heating
+
+immersion heater:
+  parent: electric water heating appliance
+
+electric swimming pool heater:
+  parent: electric water heating appliance
+
+electric shower heater:
+  parent: electric water heating appliance
+  distributions:
+    on_power:
+      - model:
+          distribution_name: summary stats
+          min: 4000
+          max: 9000
+        source: empirical from publication
+        related_documents: &Stamminger2008
+        - >
+          P. D. R. Stamminger, Synergy potential of smart appliances, 
+          in smart domestic appliances in sustainable energy systems (Smart-A),
+          University of Bonn, Tech. Rep., 2008.
+        specific_to: { country: GB }
+
+
+electric hot tub heater:
+  parent: electric water heating appliance
+
+#------- SOLAR THERMAL ---------------------------
+
+solar thermal pumping station:
+  parent: heating appliance
+  categories:
+    google_shopping:
+      - renewable energy
+      - solar energy
+      - solar panels
+  components:
+    - type: water pump
+  control: [manual, sunlight, timer]
+  on_power_threshold: 30
+
+#------- HEAT PUMP ---------------------------
+
+heat pump:
+  parent: heating appliance
+  control: [manual, timer, thermostat]
+  categories:
+    google_shopping:
+      - climate control
+  additional_properties:
+    heat_source:
+      enum: [ground, air, water]
+
+#-------------- MISC ----------------
+
+electric blanket:
+  parent: appliance
+  control: [manual, timer]
+  distributions:
+    room:
+    - distribution_of_data:
+        categories: [bedroom]
+        values: [0.8]
+      source: subjective

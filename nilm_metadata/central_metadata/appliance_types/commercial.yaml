@@ -1,0 +1,11 @@
+Commercial appliance:
+  parent: appliance
+
+
+#------------- HVAC ------------------------
+
+AHU: 
+  parent: Commercial appliance
+  
+elevator:
+  parent: Commercial appliance

@@ -1,0 +1,68 @@
+cold appliance:
+  parent: appliance
+  categories:
+    traditional: cold
+    size: large
+  distributions:
+    rooms:
+    - distribution_of_data:
+        categories: [kitchen, utility, basement, garage]
+        values: [0.5, 0.1, 0.1, 0.1]
+      source: subjective
+
+fridge:
+  parent: cold appliance
+  components:
+    - type: light
+      control: [manual]
+      do_not_merge_categories: true
+    - type: compressor
+      control: [thermostat]
+  subtypes:
+    - chest
+    - upright
+  additional_properties:
+    fridge_volume:
+      type: number
+      description: litres
+  synonyms:
+    - fridge freezer
+    - freezer
+
+freezer:
+  parent: fridge
+  do_not_inherit: [additional_properties]
+  additional_properties: &freezerVolume
+    freezer_volume: 
+      type: number
+      description: litres
+  synonyms:
+    - fridge
+    - fridge freezer
+
+fridge freezer:
+  parent: fridge
+  subtypes:
+    - fridge on top
+    - fridge on bottom
+    - side-by-side
+  additional_properties: *freezerVolume
+  synonyms:
+    - fridge
+    - freezer
+
+air conditioner:
+  parent: appliance
+  synonyms: [air conditioning, AC]
+  control: [manual, timer, thermostat]
+  categories:
+    google_shopping:
+      - climate control
+  additional_properties:
+    heat_dump:
+      enum: [ground, air, water]
+  components:
+    - type: compressor
+
+air handling unit:
+  parent: fan

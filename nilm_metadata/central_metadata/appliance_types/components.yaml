@@ -1,0 +1,74 @@
+component:
+  parent: null
+
+# ----------------- COMPONENTS ------------------------ #
+
+motor:
+  parent: component
+  categories:
+    electrical: 
+      - single-phase induction motor
+
+#-------- PUMP ---------
+
+water pump:
+  parent: motor
+
+#-------- COMPRESSOR ---------
+
+compressor:
+  parent: motor
+
+#---------- HEATING ELEMENTS -----------
+
+electric heating element:
+  parent: component
+  categories:
+    electrical: 
+      - resistive
+
+electric air heater:
+  parent: electric heating element
+
+electric water heater:
+  parent: electric heating element
+  additional_properties:
+    volume:
+      type: number
+      description: litres
+
+#--------------- SCREEN -----------------
+
+screen:
+  parent: component
+  description: >
+    if the display technology is known then please specify
+    'flat screen' or 'CRT screen'
+  additional_properties:
+    diagonal_size:
+      type: number
+      description: diagonal size in inches
+      minimum: 0
+      exclusiveMinimum: true
+    max_resolution:
+      type: object
+      properties:
+        horizontal: { type: integer }
+        vertical: { type: integer }
+    display_format:
+      type: string 
+      description: e.g. <1080p,PAL,NTSC,1080i> etc. 
+    max_refresh_rate:
+      type: number
+      description: Hz
+
+CRT screen:
+  parent: screen
+
+flat screen:
+  parent: screen
+  additional_properties:
+    display_technology:
+      enum: [CRT, LCD, plasma, OLED, projector] 
+    backlight_technology:
+      enum: [LED, cold cathode]

@@ -1,0 +1,99 @@
+manual misc appliance:
+  parent: appliance
+  control: [manual]
+
+#--------- DOMESTIC TOOLS -------------
+
+vacuum cleaner:
+  parent: manual misc appliance
+  synonyms: [vaccum cleaner]
+  control: [manual]
+  components:
+    - type: motor
+
+sewing machine:
+  parent: manual misc appliance
+  components:
+    - type: motor
+
+#-------------- CLOTHES, HEALTH AND BEAUTY -----------------
+
+hair dryer:
+  categories:
+    electrical:
+      - resistive
+  parent: manual misc appliance
+  min_on_duration: 15
+  min_off_duration: 300
+
+hair straighteners:
+  categories:
+    electrical:
+      - resistive
+  parent: manual misc appliance
+
+sun bed:
+  parent: manual misc appliance
+
+trouser press:
+  parent: manual misc appliance
+
+clothes iron:
+  categories:
+    electrical:
+      - resistive
+  parent: manual misc appliance
+  subtypes:
+    - dry
+    - steam
+
+
+motorised chair:
+  parent: manual misc appliance
+
+massage bed:
+  parent: manual misc appliance
+
+running machine:
+  parent: manual misc appliance
+
+#------------ TOOLS -----------------
+
+soldering iron:
+  parent: manual misc appliance
+  categories:
+    electrical:
+      - resistive
+
+drill:
+  parent: manual misc appliance
+  components:
+    - type: motor
+
+saw:
+  parent: manual misc appliance
+  components:
+    - type: motor
+
+
+#-------------- CLIMATE CONTROL --------------
+
+dehumidifier:
+  parent: appliance
+
+#------------------ MISC
+
+electric vehicle:
+  parent: appliance
+
+unknown:
+  parent: appliance
+  
+sockets:
+  parent: appliance
+
+subpanel:
+  parent: appliance
+
+bouncy castle pump:
+  parent: motor

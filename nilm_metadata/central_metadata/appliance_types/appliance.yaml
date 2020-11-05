@@ -1,0 +1,4 @@
+appliance:   # the super class of all appliances
+  parent: null
+  min_on_duration: 20
+  min_off_duration: 20

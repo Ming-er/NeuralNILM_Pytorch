@@ -1,0 +1,114 @@
+light:
+  description: |
+    We distinguish between the 'luminaire' (light fitting) and the
+    electric lamp(s) within the light fitting.
+
+    See:
+      - https://en.wikipedia.org/wiki/Luminaire 
+      - https://en.wikipedia.org/wiki/Lamp_%28electrical_component%29
+
+    The light appliance takes its category from the lamp type fitted.
+
+  parent: appliance
+
+  categories:
+    electrical:
+      - lighting
+
+  synonyms: [luminaire, light fitting]
+
+  usual_components: [dimmer, lamp]
+
+  additional_properties:
+    main_room_light:
+      type: boolean
+
+  subtypes:
+    - ceiling pendant
+    - ceiling downlight
+    - desk
+    - wall
+    - table
+    - floor standing
+    - floor level
+    - decorative
+    - night light
+    - signage
+    - outdoor
+    - mood
+
+  control: [manual, timer]
+
+# ----------------- LIGHTING COMPONENTS ------------------------ #
+
+lighting component:
+  parent: component
+  categories:
+    electrical:
+      - lighting
+
+# --------- LAMPS -------------------- #
+
+lamp:
+  parent: lighting component
+
+# --------- INCANDESENT --------- #
+incandescent lamp:
+  parent: lamp
+  categories:
+    electrical:
+      - incandescent
+  subtypes:
+    - halogen
+
+# --------- INCANDESENT --------- #
+LED lamp:
+  parent: lamp
+  categories:
+    electrical: 
+      - LED
+
+# --------- FLUORESCENT --------- #
+fluorescent lamp:
+  parent: lamp
+  categories:
+    electrical: 
+      - fluorescent
+
+linear fluorescent lamp:
+  parent: fluorescent lamp
+  categories:
+    electrical: 
+      - linear
+  synonyms: [ strip light ]
+
+compact fluorescent lamp:
+  parent: fluorescent lamp
+  categories:
+    electrical: 
+      - compact
+  synonyms: [ CFL ]
+
+# --------- ARC --------- #
+arc lamp:
+  parent: lamp
+
+# --------- GAS DISCHARGE --------- #
+gas discharge lamp:
+  parent: lamp
+  subtypes:
+    - mercury-vapor
+    - metal-halide
+    - sodium-vapor 
+    - neon
+
+# --------- DIMMER --------- #
+dimmer:
+  parent: lighting component
+  additional_properties:
+    number_of_dimmer_levels:
+      type: integer
+      description: not including OFF
+
+  subtypes:
+  - TRIAC

@@ -1,0 +1,133 @@
+CE appliance:
+  parent: appliance
+  categories: &CECategories
+    traditional: consumer electronics
+    size: small
+    google_shopping:
+      - electronics
+  distributions:
+    rooms:
+    - distribution_of_data:
+        categories: [lounge, bedroom, kitchen]
+        values: [0.6, 0.2, 0,1]
+      source: subjective
+
+#------------- DISPLAYS ------------------------
+
+television:
+  parent: CE appliance     
+  control: [manual]
+  usual_components: [flat screen, CRT screen]
+  subtypes:
+    - smart
+  additional_properties:
+    integrated_av_sources: &avSources
+      type: array
+      description: select all that are relevant
+      items:
+        enum: [ "digital TV tuner", "analogue TV tuner",
+                "videodisc", "CD", "DVR", "DVD", "blu-ray",
+                "tape",
+                "analogue radio", "digital radio", 
+                "satellite", "cable", "broadband", "fibre" ]
+
+
+projector:
+  parent: television
+  do_not_inherit: [usual_components, subtypes]
+
+#--------------- AV SOURCES / AUDIO PLAYERS -------------------
+
+games console:
+  parent: computer
+  categories:
+    traditional: consumer electronics
+  
+set top box:
+  parent: CE appliance
+
+AV recorder:
+  parent: CE appliance
+  subtypes:
+    - digital video recorder
+    - DVD recorder
+    - blu-ray recorder
+
+audio system:
+  parent: CE appliance
+  usual_components: [audio amplifier, CD player, radio]
+
+audio amplifier:
+  parent: CE appliance
+  usual_components: [DAC, radio]
+  subtypes:
+    - home theatre
+
+active speaker:
+  parent: audio amplifier
+
+active subwoofer:
+  parent: active speaker
+
+DAC:
+  synonyms: [Digital to Analogue Converter]
+  parent: CE appliance
+
+DVD player:
+  parent: CE appliance
+
+CD player:
+  parent: CE appliance
+
+record deck:
+  parent: CE appliance
+
+cassette deck:
+  parent: CE appliance
+
+blu-ray player:
+  parent: CE appliance
+
+radio:
+  parent: CE appliance
+  subtypes:
+    - analogue
+    - DAB
+
+#------------ CE MISC ---------------
+
+RF booster:
+  parent: CE appliance
+
+video sender:
+  parent: CE appliance
+
+digital picture frame:
+  parent: CE appliance
+
+musical instrument:
+  parent: CE appliance
+
+baby monitor:
+  parent: CE appliance
+  subtypes:
+    - baby unit
+    - parent unit
+
+door bell:
+  parent: CE appliance
+
+security alarm:
+  parent: CE appliance
+
+smoke alarm:
+  parent: CE appliance
+
+fan:
+  parent: motor
+  categories: *CECategories
+  subtypes:
+    - desk
+    - ceiling
+    - extractor
+    - single-room MVHR # mechanical ventilation with heat recovery

@@ -1,0 +1,139 @@
+ICT appliance:
+  parent: appliance
+  categories:
+    traditional: ICT
+    size: small
+    electrical: 
+      - SMPS
+    google_shopping:
+      - electronics
+
+#------------- COMPUTERS ------------------------
+
+computer:
+  parent: ICT appliance
+
+  categories:
+    google_shopping:
+      - computers
+
+  additional_properties:
+    cpu: { type: string }
+      
+  control: [manual, timer]
+
+server computer: 
+  parent: computer
+
+laptop computer:
+  parent: computer
+  categories:
+    google_shopping:
+      - laptops
+
+desktop computer:
+  parent: computer
+
+HTPC:
+  parent: computer
+  synonyms: [Home Theatre PC]
+
+computer monitor:
+  parent: ICT appliance
+  usual_components: [CRT screen, flat screen]
+
+
+#-------------- PRINTERS, SCANNER, FAX, PHOTOCOPIER, MFD ----------------
+
+printer:
+  parent: ICT appliance
+  categories:
+    google_shopping:
+      - "print, copy, scan and fax"
+      - printers and copiers
+      - printers
+  description: >
+    if known then please specify a 'small printer' or 'large printer'
+    as the two have quite different power consumption profiles.
+  subtypes:
+    - laser
+    - LED
+    - inkjet
+    - dot matrix
+
+small printer:
+  parent: printer
+
+large printer:
+  parent: printer
+
+scanner:
+  parent: ICT appliance
+
+photocopier:
+  parent: ICT appliance
+  categories:
+    google_shopping:
+      - "print, copy, scan and fax"
+      - printers and copiers
+      - copiers
+
+fax:
+  parent: ICT appliance
+  categories:
+    google_shopping:
+      - "print, copy, scan and fax"
+      - fax machines
+
+multi-function device:
+  parent: ICT appliance
+  usual_components: [fax, printer, photocopier, scanner]
+
+#-------------- CHARGERS --------------------
+
+charger:
+  parent: ICT appliance
+
+mobile phone charger:
+  parent: charger
+
+wireless phone charger:
+  parent: charger
+
+tablet computer charger:
+  parent: charger
+
+#------------- ICT MISC -------------
+
+external hard disk:
+  parent: ICT appliance
+
+network attached storage:
+  parent: ICT appliance
+  synonyms: [NAS]
+
+broadband router:
+  parent: ICT appliance
+
+ethernet switch:
+  parent: ICT appliance
+  subtypes:
+    - 1gigabit
+    - 100megabit
+
+ethernet hub:
+  parent: ethernet switch
+
+modem:
+  parent: ethernet switch
+
+USB hub:
+  parent: ICT appliance
+
+UPS:
+  parent: ICT appliance
+  synonyms: [uninterruptible power supply]
+
+paper shredder:
+  parent: ICT appliance
+
