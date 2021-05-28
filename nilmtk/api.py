@@ -4,6 +4,7 @@ from nilmtk.losses import *
 import numpy as np
 import matplotlib.pyplot as plt
 import datetime
+all_type_power = ['active','apparent']
 class API():
     # The API is designed for rapid experimentation with NILM Algorithms. 
     def __init__(self,params):
@@ -85,18 +86,25 @@ class API():
             for building in d[dataset]['buildings']:
                 print("Loading building ... ",building)
                 train.set_window(start = d[dataset]['buildings'][building]['start_time'],end = d[dataset]['buildings'][building]['end_time'])
-                train_df = next(train.buildings[building].elec.mains().load(physical_quantity='power', ac_type=self.power['mains'], sample_period = self.sample_period))
-                train_df = train_df[[list(train_df.columns)[0]]]
+                train_df = next(train.buildings[building].elec.mains().load(physical_quantity='power', ac_type= all_type_power,sample_period = self.sample_period))
+                train_df['active'] = train_df['power']['active']
+                train_df['apparent'] = train_df['power']['apparent']
+                train_df['reactive'] = np.sqrt(train_df['power']['apparent']**2 - train_df['power']['active']**2)
+                train_df.drop(['power'], axis = 1,inplace = True)
+                train_df = train_df[self.power['mains']]
+                #print(train_df.columns)
+                #print(train_df.shape)
+                #print(train_df)
+                #train_df = train_df[[list(train_df.columns)[0]]]
+                #print(train_df.shape)
 
                 appliance_readings = []           
                 for appliance_name in self.appliances:
                     appliance_df = next(train.buildings[building].elec[appliance_name].load(physical_quantity='power', ac_type=self.power['appliance'], sample_period=self.sample_period))
-                    appliance_df = appliance_df[[list(appliance_df.columns)[0]]]
+                    #appliance_df = appliance_df[[list(appliance_df.columns)[0]]]
                     appliance_readings.append(appliance_df)
-
                 if self.DROP_ALL_NANS:
                     train_df, appliance_readings = self.dropna(train_df, appliance_readings)
-
                 if self.artificial_aggregate:
                     print("Creating an Artificial Aggregate")
                     train_df = pd.DataFrame(np.zeros(appliance_readings[0].shape),index = appliance_readings[0].index,columns=appliance_readings[0].columns)
@@ -123,7 +131,21 @@ class API():
             test=DataSet(d[dataset]['path'])
             for building in d[dataset]['buildings']:
                 test.set_window(start=d[dataset]['buildings'][building]['start_time'],end=d[dataset]['buildings'][building]['end_time'])
-                test_mains=next(test.buildings[building].elec.mains().load(physical_quantity='power', ac_type=self.power['mains'], sample_period=self.sample_period))
+                test_mains = next(test.buildings[building].elec.mains().load(physical_quantity='power', ac_type=all_type_power, sample_period=self.sample_period))
+                test_mains['active'] = test_mains['power']['active']
+                test_mains['apparent'] = test_mains['power']['apparent']
+                test_mains['reactive'] = np.sqrt(test_mains['power']['apparent']**2 - test_mains['power']['active']**2)
+                test_mains.drop(['power'], axis = 1,inplace = True)
+                test_mains = test_mains[self.power['mains']]
+                '''
+                train_df = next(train.buildings[building].elec.mains().load(physical_quantity='power', ac_type= all_type_power,sample_period = self.sample_period))
+                train_df['active'] = train_df['power']['active']
+                train_df['apparent'] = train_df['power']['apparent']
+                train_df['reactive'] = np.sqrt(train_df['power']['apparent']**2 - train_df['power']['active']**2)
+                train_df.drop(['power'], axis = 1,inplace = True)
+                train_df = train_df[self.power['mains']]
+                '''
+                
                 appliance_readings=[]
 
                 for appliance in self.appliances:
