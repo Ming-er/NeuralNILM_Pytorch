@@ -39,14 +39,19 @@
   │   ├── loss.py							//The evaluation Metrics
   │   ├── diaggregate
   |   |	├── __init__.py
-  |   |	├── attention_pytorch.py		//Seq2Seq with Attention
-  |   |	├── bilstm_pytorch.py			//BiLSTM
-  |   |	├── dae_pytorch.py				//Denoising AutoEncoder
-  |   |	├── disaggregator.py			//Base Class
-  |   |	├── energan_pytorch.py			//EnerGAN
-  |   |	├── seq2point_pytorch.py		//Seq2Point
-  |   |	└── sgn_pytorch.py				//SGN
-  │   └── *								//Some details are omitted
+  |   |	├── attention_pytorch.py		   //Seq2Seq with Attention
+  |   |	├── bilstm_pytorch.py			   //BiLSTM
+  |   |	├── dae_pytorch.py				   //Denoising AutoEncoder
+  |   |	├── disaggregator.py			   //Base Class
+  |   |	├── energan_pytorch.py			   //EnerGAN
+  |   |	├── seq2point_pytorch.py		   //Seq2Point
+  |   |   ├── attention_cnn_pytorch.py       //CNN_Attention
+  |   |   ├── seq2seqcnn_pytorch.py          //CNN_Seq2Seq
+  |   |   ├── bilstm_pytorch_multidim.py     //Multiple input features BiLSTM
+  |   |   ├── dae_pytorch_multidim.py        //Multiple input features DAE
+  |   |   ├── seq2point_pytorch_multidim.py  //Multiple input features Seq2Point
+  |   |	└── sgn_pytorch.py				   //SGN
+  │   └── *								   //Some details are omitted
   ```
 
 ------
@@ -56,21 +61,20 @@
   In the folder `\nilmtk\disaggregate`, you may find several NILM algorithms, they are listed as follow:
 
   - Denoising AutoEncoder [3]
-
-  - BiLSTM [3]
-
+- BiLSTM [3]
   - Seq2Point [4]
-
+- Seq2Seq [4]
   - Seq2Seq with Attention [5]
-
-  - SGN [6]
-
+- SGN [6]
   - EnerGAN [7]
+- CNN_Attention[8]
+  
+And several NILM algorithms with '_**multidim**' suffix, such as bilstm_pytorch_multidim, ae_pytorch_multidim, seq2point_pytorch_multidim. They are original algorithms with multiple input features(P or P + Q or P + S O or  P + Q + S), which are **not included in nilmtk**[2]
   
   Notice that our implementations of BiLSTM[3] and EnerGAN[7] are **slightly different from original papers**, and the experiment results have shown that our method will result in improved accuracy. To avoid confusing users, we will list our implementation details as follow: 
   
   - For BiLSTM,  the input of the first fully connected layer is the concat of **all the hidden states** instead of the last hidden state which was the way Kelly used.
-  - For EnerGAN, we incorporate **reconstruction loss**(L1 loss) while training Generator, which is proved to be valid in most **pix2pix tasks**[8].
+  - For EnerGAN, we incorporate **reconstruction loss**(L1 loss) while training Generator, which is proved to be valid in most **pix2pix tasks**[9].
 
 ------
 
@@ -97,11 +101,12 @@
 
   [7] KASELIMI M, VOULODIMOS A, PROTOPAPADAKIS E, et al. EnerGAN: A GENERATIVE ADVERSARIAL NETWORK FOR ENERGY DISAGGREGATION[C/OL]//ICASSP 2020 - 2020 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP). Barcelona, Spain: IEEE, 2020: 1578–1582.
 
-  [8] ISOLA P, ZHU JY, ZHOU T, et al. Image-to-Image Translation with Conditional Adversarial Networks[C/OL]//2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR). Honolulu, HI: IEEE, 2017: 5967–5976.
+  [8] XU Xiaohui, ZHAO Shutao, CUI Kebin. Non-intrusive Load Disaggregate Algorithm Based on Convolutional Block Attention Module[J/0L]. Power System Technology, 2021: 1-8.
+
+  [9] ISOLA P, ZHU JY, ZHOU T, et al. Image-to-Image Translation with Conditional Adversarial Networks[C/OL]//2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR). Honolulu, HI: IEEE, 2017: 5967–5976.
 
   ------
 
 - **Future Work To Do** 
 
   Override some of the functions which are repeated in the current framework with sealed APIs.
-
