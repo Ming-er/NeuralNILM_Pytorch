@@ -61,13 +61,13 @@
   In the folder `\nilmtk\disaggregate`, you may find several NILM algorithms, they are listed as follow:
 
   - Denoising AutoEncoder [3]
-- BiLSTM [3]
+  - BiLSTM [3]
   - Seq2Point [4]
-- Seq2Seq [4]
+  - Seq2Seq [4]
   - Seq2Seq with Attention [5]
-- SGN [6]
+  - SGN [6]
   - EnerGAN [7]
-- CNN_Attention[8]
+  - CNN_Attention[8]
   
 And several NILM algorithms with '_**multidim**' suffix, such as bilstm_pytorch_multidim, ae_pytorch_multidim, seq2point_pytorch_multidim. They are original algorithms with multiple input features(P or P + Q or P + S O or  P + Q + S), which are **not included in nilmtk**[2]
   
