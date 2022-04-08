@@ -146,7 +146,7 @@ def train(appliance_name,model, mains, appliance, epochs, batch_size, threshold,
         model.eval()
         with torch.no_grad():
             cnt, loss_sum, loss_reg_sum, loss_cla_sum = 0, 0, 0, 0
-            for i, (true_mains_power, true_app_power) in enumerate(train_loader):
+            for i, (true_mains_power, true_app_power) in enumerate(valid_loader):
                 if USE_CUDA:
                     true_mains_power = true_mains_power.cuda()
                     true_app_power = true_app_power.cuda()
