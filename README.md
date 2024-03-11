@@ -45,6 +45,7 @@
   |   |	├── disaggregator.py			   //Base Class
   |   |	├── energan_pytorch.py			   //EnerGAN
   |   |	├── seq2point_pytorch.py		   //Seq2Point
+  |   |   ├── Differential_Pytorch           //Differential input
   |   |   ├── attention_cnn_pytorch.py       //CNN_Attention
   |   |   ├── seq2seqcnn_pytorch.py          //CNN_Seq2Seq
   |   |   ├── bilstm_pytorch_multidim.py     //Multiple input features BiLSTM
@@ -104,6 +105,9 @@ And several NILM algorithms with '_**multidim**' suffix, such as bilstm_pytorch_
   [8] XU Xiaohui, ZHAO Shutao, CUI Kebin. Non-intrusive Load Disaggregate Algorithm Based on Convolutional Block Attention Module[J/0L]. Power System Technology, 2021: 1-8.
 
   [9] ISOLA P, ZHU JY, ZHOU T, et al. Image-to-Image Translation with Conditional Adversarial Networks[C/OL]//2017 IEEE Conference on Computer Vision and Pattern Recognition (CVPR). Honolulu, HI: IEEE, 2017: 5967–5976.
+  
+  [10] Zhang, Y., Yang, G., & Ma, S. (2019). Non-intrusive load monitoring based on convolutional neural network with differential input. Procedia CIRP, 83, 670-674.
+  
 
   ------
 
